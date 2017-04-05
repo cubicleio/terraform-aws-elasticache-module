@@ -29,4 +29,5 @@ variable "node_type" {
 
 variable "num_cache_nodes" {
   description = "How many Cache nodes; For Redis has to be 1."
+  default     = 1
 }
