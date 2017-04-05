@@ -17,7 +17,7 @@ resource "aws_security_group" "security_group" {
 resource "aws_elasticache_subnet_group" "elasticache_subnet" {
   name = "${var.stack_name}-subnet-group"
   subnet_ids = ["${var.vpc_subnets}"]
-  description = "Subnet Group for Elasticache ${stack_name} ${var.engine}"
+  description = "Subnet Group for Elasticache ${var.stack_name} ${var.engine}"
 }
 
 resource "aws_elasticache_parameter_group" "parameter_group" {
