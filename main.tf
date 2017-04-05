@@ -22,7 +22,7 @@ resource "aws_elasticache_subnet_group" "elasticache_subnet" {
 
 resource "aws_elasticache_parameter_group" "parameter_group" {
   name   = "${var.stack_name}-${var.engine}-pg"
-  family = "${var.engine}element(split(".", ${var.engine_version}), 0)element(split(".", ${var.engine_version}), 1)"
+  family = "${var.engine}element(split('.', ${var.engine_version}), 0)element(split('.', ${var.engine_version}), 1)"
 }
 
 resource "aws_elasticache_cluster" "elasticache" {
