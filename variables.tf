@@ -30,9 +30,3 @@ variable "node_type" {
 variable "num_cache_nodes" {
   description = "How many Cache nodes; For Redis has to be 1."
 }
-
-variable "availability_zones" {
-  type = "list"
-  description = "Availability Zones"
-}
-

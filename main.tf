@@ -36,7 +36,6 @@ resource "aws_elasticache_cluster" "elasticache" {
   subnet_group_name = "${aws_elasticache_subnet_group.elasticache_subnet.name}"
   security_group_ids = ["${aws_security_group.security_group.id}"]
   apply_immediately = "true"
-  availability_zones = "${var.availability_zones}"
 
   tags {
     Name = "${var.stack_name}-${var.engine}"
