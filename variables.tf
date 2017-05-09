@@ -19,6 +19,12 @@ variable "vpc_subnets" {
   description = "VPC subnets."
 }
 
+variable "ingress_cidrs" {
+  type = "list"
+  description = "CIDR's to add to SG."
+  default = []
+}
+
 variable "engine_version" {
   description = "Version of the Engine; e.g. for Redis 3.2.4"
 }
