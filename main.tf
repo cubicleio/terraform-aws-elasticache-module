@@ -10,7 +10,7 @@ resource "aws_security_group" "security_group" {
     protocol  = "tcp"
     from_port = "${var.port}"
     to_port   = "${var.port}"
-    cidr_blocks = ["${data.aws_vpc.selected.cidr_block}", "${var.ingress_cidrs}"]
+    cidr_blocks = ["${concat(data.aws_vpc.selected.cidr_block, var.ingress_cidrs}"]
   }
 }
 
