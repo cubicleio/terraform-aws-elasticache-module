@@ -20,9 +20,9 @@ variable "vpc_subnets" {
 }
 
 variable "ingress_cidrs" {
-  type = "string"
+  type = "list"
   description = "CIDR's to add to SG."
-  default = ""
+  default = []
 }
 
 variable "engine_version" {
