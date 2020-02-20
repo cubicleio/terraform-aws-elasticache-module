@@ -1,22 +1,22 @@
 data "aws_vpc" "selected" {
-  id = "${var.vpc_id}"
+  id = var.vpc_id
 }
 
 resource "aws_security_group" "security_group" {
   name = "${var.stack_name}-${var.engine}-sg"
-  vpc_id = "${var.vpc_id}"
+  vpc_id = var.vpc_id
 
   ingress {
     protocol  = "tcp"
-    from_port = "${var.port}"
-    to_port   = "${var.port}"
-    cidr_blocks = ["${slice(concat(var.ingress_cidrs, split("-", data.aws_vpc.selected.cidr_block)), 0, length(var.ingress_cidrs) + 1)}"]
+    from_port = var.port
+    to_port   = var.port
+    cidr_blocks = [slice(concat(var.ingress_cidrs, split("-", data.aws_vpc.selected.cidr_block)), 0, length(var.ingress_cidrs) + 1)]
   }
 }
 
 resource "aws_elasticache_subnet_group" "elasticache_subnet" {
   name = "${var.stack_name}-subnet-group"
-  subnet_ids = ["${var.vpc_subnets}"]
+  subnet_ids = [var.vpc_subnets]
   description = "Subnet Group for Elasticache ${var.stack_name} ${var.engine}"
 }
 
@@ -27,17 +27,17 @@ resource "aws_elasticache_parameter_group" "parameter_group" {
 
 resource "aws_elasticache_cluster" "elasticache" {
   cluster_id = "${var.stack_name}-${var.engine}"
-  engine = "${var.engine}"
-  engine_version = "${var.engine_version}"
-  node_type = "${var.node_type}"
-  num_cache_nodes = "${var.num_cache_nodes}"
-  parameter_group_name = "${aws_elasticache_parameter_group.parameter_group.id}"
-  port = "${var.port}"
-  subnet_group_name = "${aws_elasticache_subnet_group.elasticache_subnet.name}"
-  security_group_ids = ["${aws_security_group.security_group.id}"]
+  engine = var.engine
+  engine_version = var.engine_version
+  node_type = var.node_type
+  num_cache_nodes = var.num_cache_nodes
+  parameter_group_name = aws_elasticache_parameter_group.parameter_group.id
+  port = var.port
+  subnet_group_name = aws_elasticache_subnet_group.elasticache_subnet.name
+  security_group_ids = [aws_security_group.security_group.id]
   apply_immediately = "true"
 
-  tags {
+  tags = {
     Name = "${var.stack_name}-${var.engine}"
   }
 }
