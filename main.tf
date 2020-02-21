@@ -10,13 +10,13 @@ resource "aws_security_group" "security_group" {
     protocol  = "tcp"
     from_port = var.port
     to_port   = var.port
-    cidr_blocks = [slice(concat(var.ingress_cidrs, split("-", data.aws_vpc.selected.cidr_block)), 0, length(var.ingress_cidrs) + 1)]
+    cidr_blocks = slice(concat(var.ingress_cidrs, split("-", data.aws_vpc.selected.cidr_block)), 0, length(var.ingress_cidrs) + 1)
   }
 }
 
 resource "aws_elasticache_subnet_group" "elasticache_subnet" {
   name = "${var.stack_name}-subnet-group"
-  subnet_ids = [var.vpc_subnets]
+  subnet_ids = var.vpc_subnets
   description = "Subnet Group for Elasticache ${var.stack_name} ${var.engine}"
 }
 
