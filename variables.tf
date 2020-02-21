@@ -15,12 +15,12 @@ variable "port" {
 }
 
 variable "vpc_subnets" {
-  type = "list"
+  type = list(string)
   description = "VPC subnets."
 }
 
 variable "ingress_cidrs" {
-  type = "list"
+  type = list(string)
   description = "CIDR's to add to SG."
   default = []
 }
